@@ -1,5 +1,4 @@
-
-前提：已安装git
+前提：本地已安装git客户端
 
 git版本管理步骤：
 1.VCS--enable version control integration--选择git
@@ -13,15 +12,19 @@ git版本管理步骤：
 4.上传到远程仓库（注意commit之后才能push）
 vcs--git--push
 
-
-4.撤回
+5.撤回
 右键点击revert
 
-5.创建分支
+6.创建分支
 VSC--GIT--Branches
 
-6.合并分支
-先切换都主分支：
+7.合并分支
+先切换到主分支：右下角选择master--checkout
+合并分支：VCS--GIT--Merge Changes--勾选要合并的分支--点击merge（此时只是在本地合并了）
+将合并后的项目提交到远程仓库：VCS--GIT--push
 
-4.查看修改的历史：
+8.回退到之前版本
+log--选中要回退的版本--右键checkout version
+
+9.查看修改的历史：
 VSC--Local history --Show History
