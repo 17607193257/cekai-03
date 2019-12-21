@@ -1,4 +1,5 @@
 前提：本地已安装git客户端
+参考可优老师博客：https://www.cnblogs.com/keyou1/p/12071992.html
 
 git版本管理步骤：
 1.VCS--enable version control integration--选择git
