@@ -1,0 +1,224 @@
+﻿一、创建Django工程：
+1.创建虚拟环境
+新建项目时，选择Virtualenv,进行创建；
+
+2.安装django
+进入虚拟环境中，pip install -i https://pypi.tuna.tsinghua.edu.cn/simple/ Django
+或者：在 pycharm的settings中安装
+注：每个虚拟环境的包都需要重新安装，虚拟环境就相当于是一个新的环境
+
+3.创建项目
+django-admin startproject 项目名 .
+注：最后的.表示：在当前项目根目录下创建项目
+
+4.运行项目：
+1.terminal中执行:python manage.py runserver
+如果需要指定端口，则运行：python manage.py runserver 端口号
+如果需要指定ip地址和端口，则运行：python manage.py runserver ip:端口号
+
+设置右上角的快捷启动方式：
+Edit Configurations--点击+----django server ----设置启动器名称，host，端口（默认为：127.0.0.1:8000）
+如果出现erro：点击fix---勾选enable django support--设置django project root：E:\TEST\07python19\DjangoDev03，
+和settings目录：E:\TEST\07python19\DjangoDev03\DjangoDev03\settings.py
+
+2.设置为中文站点和时区
+DjangoDev03/settings.py 在该文件中设置：
+LANGUAGE_CODE = 'zh-hans'
+TIME_ZONE = 'Asia/Shanghai'
+
+
+5、项目结构
+1.DjangoDev03 是项目名
+2.和项目名同名的目录存放Django的相关配置文件
+3.asgi.py ASGI异步服务器的相关配置（django 3.0 才有）
+4.DjangoDev03/settings.py 存放是Django全局配置信息
+5.DjangoDev03/urls.py 存放全局路由表
+6.DjangoDev03/wsgi.py 在部署Django项目时，使用的wsgi服务器配置信息
+7.db.sqlite3 Django默认使用的sqlite文本数据库(第一次运行项目后自动产生，是默认的数据库，一般不用，后面会替换为mysql)
+8.manage.py：Django提供的命令行操作工具，开发阶段使用它来启动项目和数据库的迁移等等
+
+
+二、创建一个功能
+1.先创建子应用
+方法一：在terminal中运行：python manage.py startapp 子应用的名称
+方法二：Tools--Run manage.py Task(相当于在terminal中运行python manage.py 回车)--运行startapp 子应用名称
+
+2.在DjangoDev03/settings.py全局配置文件中的，INSTALLED_APPS列表中添加app的信息（只要创建了子应用，都要将app信息添加到settings.py中）
+#应用名.apps.应用名首字母大写Config
+'projects.apps.ProjectsConfig',
+
+3.在子应用目录projects/views.py中创建相关功能（视图函数）
+
+4.在DjangoDev03/urls.py全局路由表中，添加路由信息
+
+三、子应用的意义
+1.往往Django最小功能模块，会以应用的形式呈现
+2.方便重用
+3.结构更清晰
+
+四、子应用结构
+1.projects/migrations 存放数据库迁移的相关信息
+2.projects/admin.py 为admin站点的配置信息
+3.projects/apps.py 存放的是app的标签等相关信息
+4.projects/models.py 存放数据库模型相关信息
+5.projects/tests.py 存放的当前应用单元测试相关信息
+6.projects/views.py 主要定义相关功能（业务逻辑）
+
+五、问题
+1.模板渲染的形式，把这种开发模式叫做前后端不分离。
+
+前后端不分离的缺陷：
+后端控制数据的展示；
+前后端不分家，耦合严重；
+返回的是HTML页面，适应性、拓展性差；只能用于浏览器，其他终端不适配；
+
+2.把后端返回json（xml）格式的数据，这种开发模式，叫做前后端分离。
+优势：
+当前主流；
+后端只对数据进行处理，只提供数据；
+前端效率、好不好看，全由前端负责，前后端完全独立；
+解耦合；
+前后端同时开发，缩小业务线周期；
+适应性、拓展性好；
+适合多终端运行同一套接口（pc、app、小程序等）
+
+
+六、ORM框架
+定义：
+1.把类和数据表进行映射
+2.通过类和对象就能操作它所对应表格中的数据（CRUD）
+
+遇到的坑：
+删除了数据迁移文件，导致无法迁移成功，解决方法：
+删除所有的迁移文件和pyc缓存文件，然后重新迁移
+
+七、在数据表中添加测试数据
+方法一：
+手动在数据库添加
+方法二：
+在terminal中运行python manage.py shell后，进行CRUD操作
+方法三：
+进入python console，进行CRUD操作
+
+
+数据库表结构修改了，才叫迁移；数据没修改，叫备份；
+
+八、restful API
+一、简介
+restful是一种设计风格而不是标准；
+每一个url代表一种资源：json数据，text文本，图片、视频等
+
+请求头中：
+content-type：告诉服务器传参的类型
+accept：告诉服务器期望返回的数据类型
+
+客户端通过HTTP动词，指明对服务器端资源要进行的操作
+get：读取
+post：新建
+put：更新
+patch：部分更新
+delete：删除
+
+二、rest常用的设计规则
+1.url
+命名
+尽量用名词复数形式（不要用动词，或者单数）
+往往与数据库的表名对应
+
+过滤条件（用查询字符串体现）
+？limit=10  ：指定返回记录的数量
+？offset=10 ：指定返回记录的开始位置
+？page=2&size=10：指定第几页和每页的数据条数
+？sort=name   ：指定返回结果按照哪个属性排序，以及排序顺序
+
+域名
+尽量使用专用域名（前端域名和后台请求域名不一致）
+
+版本
+在url中呈现
+http://api.keyou.site/app/0.1/
+
+也可在请求头中呈现
+Accept:application/vnd.example.v0.2+json
+
+2.HTTP请求动词
+get（select）：从服务器获取资源
+post（create）：新建
+put（update）：更新（客户端提供改变后的完整资源）
+patch(update where)：部分更新(客户端提供更新的属性)
+delete（delete)：删除
+
+head：获取资源的元数据
+options：获取关于资源的哪些属性是客户端可以改变的信息
+
+
+GET /projects :获取多条数据，也称为获取项目列表信息
+GET /projects/6：获取一条数据，也称为获取项目的详情信息
+POST /projects：创建一个新项目
+PUT /projects/6：更新id为6的项目
+PATCH /projects/6：部分更新id为6的项目
+DELETE /projects/6：删除id为6的项目
+
+GET /projects/6/interfaces  :获取id为6的项目的所有接口信息
+GET /projects/6/interfaces/1：获取id为6的项目的id为1的接口信息
+
+3.状态码
+200--【GET】:服务器成功返回用户请求的信息
+201--【post/put/patch】:用户新建或修改数据成功
+204--【delete】:用户删除数据成功
+400--【post/put/patch】:用户请求参数有误
+401--【GET】:用户没有登陆
+403--【GET】:用户没有权限
+404--【GET】:请求路径不存在
+500--【GET】:服务器报错
+
+
+
+
+4.返回结果
+GET /projects :返回所有项目的列表（json数组）
+GET /projects/6：返回单个项目信息（单个json）
+POST /projects：返回新生成的项目信息（单个json）
+PUT /projects/6：返回更新后完整的项目信息（单个json）
+PATCH /projects/6：返回更新后完整的项目信息（单个json）
+DELETE /projects/6：返回空
+
+
+5.错误处理
+将错误信息以json格式的数据返回
+
+6.Hypermedia API 超链接API
+响应数据中，可以包含下一步操作的url链接
+
+2019.12.21
+一、痛点
+1.代码冗余极为严重，不符合优秀测开的风格
+2.数据校验相当麻烦，且可复用性非常差
+3.代码杂乱无章
+4.前端传参的方式有限制
+5.仅能返回json格式的数据，
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
