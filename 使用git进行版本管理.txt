@@ -8,7 +8,6 @@ git版本管理步骤：
 在项目根目录创建.gitignore---在给文件中写入不需要版本控制的文件
 
 3.在pycharm底部的version control，右键点击commit，勾选要上传的文件---commit
-注意：commit时填写的author格式必须为 name <email>才行，比如：17607193257 <604784166@qq.com>
 
 4.查看修改的历史：
 VSC--Local history --Show History
