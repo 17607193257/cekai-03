@@ -109,6 +109,7 @@ def index(request):
 #     #     return JsonResponse(data, safe=False)
 #
 #     # def get(self, request):
+#     #     #CRUD操作：
 #     #     # 创建操作
 #     #     # 方法一：
 #     #     # 一个模型类相当于一个表（table）
@@ -216,10 +217,7 @@ def index(request):
 #     #     #默认是升序，如需要降序，可以在字段名前加-
 #     #     Projects.objects.filter(name__contains="项目").order_by("id")  #默认正序
 #     #     Projects.objects.filter(name__contains="项目").order_by("-id")  #在排序字段前面加-，为倒序
-#     #
-#     #
-#     #
-#     #
+
 #     #     return HttpResponse("项目创建成功")
 #
 #     # def post(self, request):
@@ -252,74 +250,3 @@ def index(request):
 #     #     # 2.key值为HTTP_为前缀+传递的参数的key值大写：request.META("HTTP_AUTHORIZATION")
 #     #     return HttpResponse("<h1>PUT请求：Hello，测开大佬们!<h1>")
 
-class ProjectsList(View):
-    def get(self,request):
-        Projects.objects.all()
-        pass
-
-    def post(self,request):
-        '''
-        将前段传递的json格式数据转换为python中的数据类型（模型类）--反序列化
-        将模型类对象转换为json格式的数据--序列化
-        :param request:
-        :return:
-        '''
-        #1.接收参数&校验参数
-
-        #2.向数据库中新增项目
-
-        #3.返回结果
-        pass
-
-
-
-class ProjectEdit(View):
-
-    def get(self,request,pk):
-        '''
-        获取指定项目的信息
-        :param request:
-        :param pk:
-        :return:
-        '''
-        #1.校验前端传递的pk（项目id）值
-
-        #2.获取指定pk值得项目
-        Projects.
-
-        #3.将模型类对象转化为字典
-        one_dict={
-
-        }
-        pass
-
-    def put(self,request,pk):
-        '''
-        更新指定的项目
-        :param request:
-        :param pk:
-        :return:
-        '''
-        # 1.校验前端传递的pk（项目id）值
-
-        # 2.获取指定pk值得项目
-
-        #3.
-        pass
-
-
-    def delete(self,request,pk):
-        '''
-        删除指定的数据
-        :param request:
-        :param pk:
-        :return:
-        '''
-        # 1.校验前端传递的pk（项目id）值
-
-        # 2.获取指定pk值得项目
-
-        #3.删除项目
-
-        #4.返回
-        pass
